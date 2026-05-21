@@ -9,7 +9,11 @@ pipeline {
         }
         stage('Build') {
             steps {
-                // C code ko compile karna (gcc compiler zaroori hai)
+                // Hum 'sh' ki bajaye direct command chala kar check karte hain
+                sh 'echo "Installing GCC..."'
+                // Jenkins container mein hum root nahi hain, isliye sh se install mushkil hai.
+                // Lekin hum gcc ki jagah check karte hain k kya yahan 'clang' ya 'gcc' path mein hai?
+                sh 'gcc --version || echo "GCC not found, please check agent environment"'
                 sh 'gcc index.c -o myapp'
             }
         }
