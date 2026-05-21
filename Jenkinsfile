@@ -3,22 +3,25 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                echo 'Pulling code from GitHub...'
+                // GitHub se code pull ho raha hai
+                checkout scm
             }
         }
         stage('Build') {
             steps {
-                echo 'Building...'
+                // C code ko compile karna (gcc compiler zaroori hai)
+                sh 'gcc index.c -o myapp'
             }
         }
         stage('Test') {
             steps {
-                echo 'Testing...'
+                // C program ko run karke test karna
+                sh './myapp'
             }
         }
         stage('Notify') {
             steps {
-                echo 'Success!'
+                echo 'Pipeline completed successfully!'
             }
         }
     }
